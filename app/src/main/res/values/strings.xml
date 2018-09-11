@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">MyBooks</string>
+    <string name="cinquenta_tons_de_cinza">
+        A estudante de literatura Anastasia Steele, de 21 anos, entrevista
+        o jovem bilionário Christian Grey, como um favor a sua colega de quarto
+        Kate Kavanagh, tornando-se o objeto de
+        submissão do enigmático Grey.</string>
+
+    <string name="o_pequeno_principe">
+       Um piloto cai com seu avião no deserto e ali encontra uma criança loura e frágil.
+        Ela diz ter vindo de um pequeno planeta distante. E ali,
+        na convivência com o piloto perdido, os dois repensam os seus valores e encontram o sentido da vida.</string>
+
+    <string name="kotlin_android">
+        Os desenvolvedores querem que seu trabalho seja feito – e quanto menos complicações houver, melhor. Programar com Kotlin significa ter menos complicações. A linguagem de programação Kotlin oferece uma sintaxe expressiva, um sistema de tipos robusto e intuitivo e o suporte de um ótimo conjunto de ferramentas, juntamente com uma interoperabilidade natural com códigos, bibliotecas e frameworks Java.
+        A linguagem Kotlin pode ser compilada para bytecode Java,
+        portanto você pode usá-la em todos os lugares em que Java é
+        utilizada, inclusive no Android</string>
 </resources>
