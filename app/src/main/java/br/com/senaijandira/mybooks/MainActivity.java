@@ -13,7 +13,7 @@ import android.widget.TextView;
 import br.com.senaijandira.mybooks.model.Livro;
 
 public class MainActivity extends AppCompatActivity {
-
+    //lista onde aparece todos os livos
     LinearLayout listaLivros;
 
     public static Livro[] livros;
@@ -25,14 +25,12 @@ public class MainActivity extends AppCompatActivity {
 
         listaLivros=findViewById(R.id.listaLivros);
 
-        //criando cadastros fake
-
-        livros = new Livro[]{
+        //criando cadastros(livros) fake
+        livros = new Livro[]{/*
                 new Livro(1,Utils.toByteArray(getResources(),R.drawable.cinquenta_tons_cinza),"50 Tons de Cinza", getString(R.string.cinquenta_tons_de_cinza)),
                 new Livro(2,Utils.toByteArray(getResources(),R.drawable.pequeno_principe),"O Pequeno Principe", getString(R.string.o_pequeno_principe)),
                 new Livro(3,Utils.toByteArray(getResources(),R.drawable.kotlin_android),"Kotlin", getString(R.string.kotlin_android)),
-                new Livro(4,Utils.toByteArray(getResources(),R.drawable.cinquenta_tons_cinza),"50 Tons de Cinza", getString(R.string.cinquenta_tons_de_cinza))
-
+*/
         };
 
 
@@ -53,9 +51,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void abrirCadastro(View v){
-        startActivity(new Intent(this,CadastroActivity.class));
-    }
+
 
     // método para criar livro
     public void criarLivro(Livro livro , ViewGroup root){
@@ -77,4 +73,16 @@ public class MainActivity extends AppCompatActivity {
         //Exibindo na tela
         root.addView(v);
     }
-}
+
+
+    public void abrirCadastro(View v){
+        startActivity(new Intent(this,CadastroActivity.class));
+
+
+
+
+    }
+
+
+
+    }
