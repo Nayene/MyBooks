@@ -1,20 +1,24 @@
 package br.com.senaijandira.mybooks.model;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+
+@Entity
 public class Livro {
 
-    // atributos da classe
+    @PrimaryKey(autoGenerate = true) //setando o id como primary key do banco
     private int id;
+
+    @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
     private byte[]capa;
     private String titulo;
     private String descricao;
 
 
-
-
     public Livro(){}
 
-    public Livro(int id,byte[] capa,String titulo, String descricao ){
-        this.id = id;
+    public Livro(byte[] capa,String titulo, String descricao ){
         this.capa = capa;
         this.titulo = titulo;
         this.descricao = descricao;

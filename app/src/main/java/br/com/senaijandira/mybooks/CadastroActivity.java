@@ -2,6 +2,8 @@ package br.com.senaijandira.mybooks;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.arch.persistence.room.Room;
+import android.arch.persistence.room.RoomDatabase;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -15,6 +17,7 @@ import android.widget.ImageView;
 import java.io.InputStream;
 import java.util.Arrays;
 
+import br.com.senaijandira.mybooks.db.MyBooksDatabase;
 import br.com.senaijandira.mybooks.model.Livro;
 
 public class CadastroActivity extends AppCompatActivity {
@@ -24,10 +27,14 @@ public class CadastroActivity extends AppCompatActivity {
     AlertDialog alerta;
     private final int COD_REQ_GALERIA = 101;
 
+    private MyBooksDatabase myBookDB;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro);
+
+        myBookDB = Room.databaseBuilder(getApplicationContext(),MyBooksDatabase.class,Utils.DATABASE_NAME).fallbackToDestructiveMigration().allowMainThreadQueries().build();
 
        imgLivroCapa= findViewById(R.id.imgLivroCapa);
        txtTitulo = findViewById(R.id.txtTitulo);
@@ -62,24 +69,36 @@ public class CadastroActivity extends AppCompatActivity {
     }
 
     public void salvarLivro(View view) {
-        byte[] capa = Utils.toByteArray(livroCapa);
+        byte[] capa ;
         String titulo = txtTitulo.getText().toString();
         String descricao = txtDescricao.getText().toString();
-
-        Livro livro = new Livro(0,capa, titulo, descricao);
-
-        // Inserir na variavl estatica da mainActivity
-        int tamanhoArray = MainActivity.livros.length;
-        MainActivity.livros = Arrays.copyOf(MainActivity.livros,tamanhoArray + 1);
-        MainActivity.livros[tamanhoArray] = livro;
-
-        if(titulo.equals("")){
-            alert("ERRO","Preencha todos os campos",1);
-        }else if(descricao.equals("")) {
+        //tratamento de erro
+        if (titulo.equals("")) {
+            alert("ERRO", "Preencha todos os campos", 1);
+        } else if (descricao.equals("")) {
+            alert("ERRO", "Preencha todos os campos", 1);
+        }else if(livroCapa == null){
             alert("ERRO", "Preencha todos os campos", 1);
         }else {
+            capa = Utils.toByteArray(livroCapa);
             alert("Cadastrado","Seu livro foi cadastrado com sucesso",0);
+
+            Livro livro = new Livro(capa, titulo, descricao);
+
+            //inserir no banco de dados
+            myBookDB.daoLivro().inserir(livro);
+
         }
+
+
+        // Inserir na variavl estatica da mainActivity
+        /*int tamanhoArray = MainActivity.livros.length;
+        MainActivity.livros = Arrays.copyOf(MainActivity.livros,tamanhoArray + 1);
+        MainActivity.livros[tamanhoArray] = livro;
+        */
+
+
+
     }
 
     public void alert(String titulo, String msg, int categoria){
@@ -89,6 +108,7 @@ public class CadastroActivity extends AppCompatActivity {
         builder.setCancelable(false);
 
         if (categoria == 1){
+            // botão ok
             builder.setNeutralButton("ok", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
