@@ -1,25 +1,36 @@
 package br.com.senaijandira.mybooks;
 
 import android.arch.persistence.room.Room;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 import br.com.senaijandira.mybooks.db.MyBooksDatabase;
 import br.com.senaijandira.mybooks.model.Livro;
 
 public class MainActivity extends AppCompatActivity {
     //lista onde aparece todos os livos
-    LinearLayout listaLivros;
+    ListView lstViewLivros;
+    Button btnqQueroLer;
+    livrosAdapter adapter;
 
     public static Livro[] livros;
 
@@ -30,7 +41,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        listaLivros=findViewById(R.id.listaLivros);
+        btnqQueroLer= findViewById(R.id.btnqQueroLer);
+        lstViewLivros=findViewById(R.id.lstViewLivros);
+
+        adapter = new livrosAdapter(this);
+        lstViewLivros.setAdapter(adapter);
+
+
 
         //instancia do banco de dados
         myBooksDB = Room.databaseBuilder(getApplicationContext(),MyBooksDatabase.class, Utils.DATABASE_NAME).fallbackToDestructiveMigration().allowMainThreadQueries().build();
@@ -51,24 +68,26 @@ public class MainActivity extends AppCompatActivity {
 
         byte[] capa = Utils.toByteArray(getResources(),R.drawable.cinquenta_tons_cinza);
         Livro livro = new Livro(1,capa,"50 Tons de Cinza", getString(R.string.cinquenta_tons_de_cinza));
-
 */
     }
 
+    public void adicionarLivroQueroler(){
+
+    }
     @Override
     protected void onResume() {
         super.onResume();
         //fazer select no banco
         livros = myBooksDB.daoLivro().selecionarTodos();
 
-        listaLivros.removeAllViews();
-        for(Livro l:livros){
-            criarLivro(l, listaLivros);
-        }
+        adapter.clear();
+        adapter.addAll(livros);
+
     }
 
 
-    public void deletarLivro(final Livro livro, final View v){
+
+    public void deletarLivro(final Livro livro){
 
         AlertDialog.Builder alertDelete = new AlertDialog.Builder(this);
         alertDelete.setTitle("Deletar");
@@ -82,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
                 myBooksDB.daoLivro().deletar(livro);
 
                 //deletar livro da tela
-                listaLivros.removeView(v);
+                adapter.remove(livro);
             }
         });
         alertDelete.show();
@@ -90,46 +109,59 @@ public class MainActivity extends AppCompatActivity {
         //Toast.makeText(this, livro.getTitulo(),Toast.LENGTH_SHORT).show();   // teste para ver se iria excluir o item certo
     }
 
-    // método para criar livro
-    public void criarLivro(final Livro livro , ViewGroup root){
-        final View v = LayoutInflater.from(this).inflate(R.layout.livro_layout,root,false);
 
-        ImageView imgLivroCapa =  v.findViewById(R.id.imgLivroCapa);
-        TextView txtLivroTitulo =  v.findViewById(R.id.txtlivroTitulo);
-        TextView txtLivroDescricao =  v.findViewById(R.id.txtlivroDescricao);
+    public class livrosAdapter extends ArrayAdapter<Livro>{
+        public livrosAdapter(Context ctx){
+            super(ctx,0,new ArrayList<Livro>());
+        }
 
-        //lixeira
-        ImageView imgDeleteLivro = v.findViewById(R.id.imgDeleteLivro);
+        @NonNull
+        @Override
+        public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+           View v = convertView;
 
-        imgDeleteLivro.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                deletarLivro(livro, v);
-            }
-        });
+           if (v == null){
+              v = LayoutInflater.from(getContext()).inflate(R.layout.livro_layout,parent,false);
+           }
 
-        //setando a imagem do livro
-        imgLivroCapa.setImageBitmap(Utils.toBitmap(livro.getCapa()));
+            final Livro livro = getItem(position);
 
-        // setando o titulo d livro
-        txtLivroTitulo.setText(livro.getTitulo());
+            ImageView imgLivroCapa =  v.findViewById(R.id.imgLivroCapa);
+            TextView txtLivroTitulo =  v.findViewById(R.id.txtlivroTitulo);
+            TextView txtLivroDescricao =  v.findViewById(R.id.txtlivroDescricao);
 
-        //setando a descriçao do livro
-        txtLivroDescricao.setText(livro.getDescricao());
+            //lixeira
+            ImageView imgDeleteLivro = v.findViewById(R.id.imgDeleteLivro);
 
-        //Exibindo na tela
-        root.addView(v);
+            imgDeleteLivro.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    deletarLivro(livro);
+                }
+            });
+
+            //setando a imagem do livro
+            imgLivroCapa.setImageBitmap(Utils.toBitmap(livro.getCapa()));
+
+            // setando o titulo d livro
+            txtLivroTitulo.setText(livro.getTitulo());
+
+            //setando a descriçao do livro
+            txtLivroDescricao.setText(livro.getDescricao());
+
+            return v;
+        }
     }
+
+
 
 
     public void abrirCadastro(View v){
         startActivity(new Intent(this,CadastroActivity.class));
-
-
-
-
     }
 
 
-
+    public void abrirQueroLer(View v){
+        startActivity(new Intent(this,QueroLerActivity.class));
+    }
     }

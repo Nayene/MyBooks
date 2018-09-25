@@ -8,18 +8,10 @@
 
 
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    <LinearLayout
+    <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/listaLivros"
-        android:orientation="vertical">
-    </LinearLayout>
-
-    </ScrollView>
+        android:id="@+id/lstViewLivros"/>
 
     <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"
