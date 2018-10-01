@@ -1,6 +1,7 @@
 package br.com.senaijandira.mybooks;
 
 import android.app.Activity;
+import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -19,27 +20,24 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import br.com.senaijandira.mybooks.db.MyBooksDatabase;
 import br.com.senaijandira.mybooks.model.Livro;
 
-public class QueroLerActivity extends Activity {
-    GridView gridQueroLer;
-    livrosAdapter adapter;
 
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public class AdapterLivros extends ArrayAdapter<Livro> {
+         private MyBooksDatabase myBooksDB;
 
-
-        gridQueroLer = findViewById(R.id.gridQueroLer);
-
-
-        setContentView(R.layout.activity_queroler);
-    }
-
-    public class livrosAdapter extends ArrayAdapter<Livro> {
-        public livrosAdapter(Context ctx){
+        public AdapterLivros(Context ctx){
             super(ctx,0,new ArrayList<Livro>());
+
+            this.myBooksDB = myBooksDB;
+        }
+
+        private void deletarLivro(Livro livro){
+            myBooksDB.daoLivro().deletar(livro);
+
+            remove(livro);
         }
 
         @NonNull
@@ -48,7 +46,7 @@ public class QueroLerActivity extends Activity {
             View v = convertView;
 
             if (v == null){
-                v = LayoutInflater.from(getContext()).inflate(R.layout.activity_queroler,parent,false);
+                v = LayoutInflater.from(getContext()).inflate(R.layout.livro_layout,parent,false);
             }
 
             final Livro livro = getItem(position);
@@ -57,6 +55,15 @@ public class QueroLerActivity extends Activity {
             TextView txtLivroTitulo =  v.findViewById(R.id.txtlivroTitulo);
             TextView txtLivroDescricao =  v.findViewById(R.id.txtlivroDescricao);
 
+
+            ImageView imgDeleteLivro = v.findViewById(R.id.imgDeleteLivro);
+
+            imgDeleteLivro.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    deletarLivro(livro);
+                }
+            });
 
 
             //setando a imagem do livro
@@ -71,4 +78,4 @@ public class QueroLerActivity extends Activity {
             return v;
         }
     }
-}
+

@@ -6,35 +6,6 @@
     android:background="#f4cf95"
     >
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="5dp"
-        >
-
-        <Button
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/botao_radio"
-            android:fontFamily="monospace"
-            android:text="Adicionados a Quero ler"
-            android:textSize="15dp"
-            android:onClick="abrirQueroLer"
-            />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/botao_radio"
-            android:fontFamily="monospace"
-            android:text="Adicionados a Lidos"
-            android:textSize="15dp"
-            android:layout_marginTop="5dp"
-            />
-
-    </LinearLayout>
     <android.support.v7.widget.CardView
         xmlns:card_view = "http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"

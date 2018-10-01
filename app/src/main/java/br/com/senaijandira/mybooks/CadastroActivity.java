@@ -91,13 +91,6 @@ public class CadastroActivity extends AppCompatActivity {
         }
 
 
-        // Inserir na variavl estatica da mainActivity
-        /*int tamanhoArray = MainActivity.livros.length;
-        MainActivity.livros = Arrays.copyOf(MainActivity.livros,tamanhoArray + 1);
-        MainActivity.livros[tamanhoArray] = livro;
-        */
-
-
 
     }
 
