@@ -1,4 +1,4 @@
-package br.com.senaijandira.mybooks;
+package br.com.senaijandira.mybooks.db;
 
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -10,10 +10,12 @@ public class Utils {
 
     public static final String DATABASE_NAME = "mybooks.db";
 
+    // convertendo a imagem  para bitmap
     public static byte[] toByteArray( Bitmap bitmap){
 
         ByteArrayOutputStream blob = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 0 , blob);
+
 
         return blob.toByteArray();
     }
@@ -23,10 +25,8 @@ public class Utils {
 
         ByteArrayOutputStream blob = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 0 , blob);
-
         return blob.toByteArray();
     }
-
 
     public static Bitmap toBitmap(byte[] imagem){
         return BitmapFactory.decodeByteArray(imagem, 0, imagem.length);

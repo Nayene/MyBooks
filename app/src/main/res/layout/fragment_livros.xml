@@ -2,19 +2,17 @@
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
     >
 
-    <TextView
-        android:id="@+id/text1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/lstViewLivros"/>
+        android:id="@+id/listViewLivros">
+
+    </ListView>
 
     <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"
@@ -23,7 +21,7 @@
         android:layout_gravity="end|bottom"
         app:srcCompat="@android:drawable/ic_input_add"
         android:tint="#fff"
-        android:onClick="abrirCadastro"
-        />
+        android:onClick="abrirCadastro"/>
+
 
 </FrameLayout>

@@ -4,32 +4,43 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
+// ***** criando um livro ***
 @Entity
 public class Livro {
-
-    @PrimaryKey(autoGenerate = true) //setando o id como primary key do banco
+    @PrimaryKey(autoGenerate = true)
     private int id;
 
+    //A capa é um array de bytes
     @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
-    private byte[]capa;
+    private byte[] capa;
+
     private String titulo;
     private String descricao;
-
+    private int status;
 
     public Livro(){}
 
-    public Livro(byte[] capa,String titulo, String descricao ){
+    public Livro(int id, byte[] capa, String titulo, String descricao, int status){
+        this.id= id;
         this.capa = capa;
         this.titulo = titulo;
         this.descricao = descricao;
+        this.status = status;
     }
-
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public byte[] getCapa() {
+        return capa;
+    }
+
+    public void setCapa(byte[] capa) {
+        this.capa = capa;
     }
 
     public String getTitulo() {
@@ -48,11 +59,11 @@ public class Livro {
         this.descricao = descricao;
     }
 
-    public byte[] getCapa() {
-        return capa;
+    public int getStatus() {
+        return status;
     }
 
-    public void setCapa(byte[] capa) {
-        this.capa = capa;
+    public void setStatus(int status) {
+        this.status = status;
     }
 }

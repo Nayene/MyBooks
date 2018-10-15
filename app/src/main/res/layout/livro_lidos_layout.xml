@@ -3,22 +3,18 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp">
+    android:padding="5dp">
 
     <android.support.v7.widget.CardView
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        card_view:cardCornerRadius="5dp"
-
-        >
+        card_view:cardCornerRadius="4dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-
-            >
+            android:orientation="horizontal">
 
             <ImageView
                 android:layout_width="100dp"
@@ -26,8 +22,7 @@
                 android:layout_marginRight="15dp"
                 android:layout_gravity="center_vertical"
                 android:id="@+id/imgLivroCapa"
-                android:src="@drawable/cinquenta_tons_cinza"
-
+                android:src="@drawable/pequeno_principe"
                 />
 
             <LinearLayout
@@ -41,7 +36,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="50 tons de cinza"
+                    android:text="O Pequeno principe"
                     android:textStyle="bold"
                     android:textSize="18sp"
                     android:id="@+id/txtLivroTitulo"
@@ -51,61 +46,29 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/txtLivroDescricao"
-                    android:text="@string/cinquenta_tons"
+                    android:text="@string/pequeno_principe"/>
 
-                    />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:gravity="right"
-                >
+                android:orientation="vertical">
 
-                <LinearLayout
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/delete"
+                    android:id="@+id/imgDeleteLivro"/>
+
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    >
+                    android:src="@drawable/queroler"
+                    android:id="@+id/imgLivrosLer"
+                    android:layout_marginTop="90dp"
+                    />
 
-                    <ImageView
-                        android:layout_width="15dp"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/delete"
-                        android:id="@+id/imgDeleteLivro"
-
-                        />
-
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/editar"
-                        android:id="@+id/imgEditarLivro"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="70dp"
-
-                    >
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/queroler"
-                        android:id="@+id/imgLivrosLer"
-
-                        />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/lidos"
-                        android:id="@+id/imgLivrosLidos"
-                        android:layout_marginLeft="5dp"/>
-
-                </LinearLayout>
             </LinearLayout>
 
         </LinearLayout>
